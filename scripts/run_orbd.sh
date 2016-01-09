@@ -1,2 +1,2 @@
- #!/usr/bin/env bash
- orbd -ORBInitialPort 1050
+#!/bin/bash
+orbd -ORBInitialPort 1050
