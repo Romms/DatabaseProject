@@ -104,31 +104,35 @@ public class GuiLauncher {
         DatabaseController controller = null;
         for (String arg : args) {
             switch (arg) {
-                case "-UseLocalController":
+                case "--use=LocalController":
                     System.out.println("Local controller");
                     controller = GetLocalController();
                     break;
-                case "-UseJrmpController":
+                case "--use=JrmpController":
                     System.out.println("JRMP controller"); // Java Remote Method Protocol
 
                     controller = GetRmiJrmpController();
                     break;
-                case "-UseIiopController":
+                case "--use=IiopController":
                     System.out.println("IIOP controller");
                     controller = GetRmiIiopController();
                     break;
-                case "-UseIiopToCorbaController":
+                case "--use=IiopToCorbaController":
                     System.out.println("Iiop To Corba controller");
                     //controller = GetRmiIiopToCorbaController();
                     break;
-                case "-UseCorbaController":
+                case "--use=CorbaController":
                     System.out.println("Corba controller");
                     //controller = GetCorbaController(args);
                     break;
-                case "-UseWebServiceController":
+                case "--use=WebServiceController":
                     System.out.println("Web service controller");
                     controller = GetWebServiceController();
                     break;
+                default:
+                    System.out.println("Invalid options.");
+                    break;
+
             }
         }
 
