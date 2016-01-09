@@ -46,10 +46,6 @@ public class DatabaseWebService {
                             + parseException.getMessage() );
         }
 
-    	if (args.length > 0) {
-    		port = Integer.parseInt(args[0]);
-    	}
-
         DatabaseControllerWeb controller = new DatabaseControllerWebAdapter(new DatabaseControllerDirect());
         try {
             controller.loadDatabaseFromFile(database_path);
