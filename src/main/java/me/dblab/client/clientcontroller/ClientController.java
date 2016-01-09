@@ -32,7 +32,7 @@ public class ClientController {
     }
 
     public void loadDatabase() {
-        String path = ClientControllerHelper.queryPath();
+        String path = ClientControllerHelper.queryLoadPath();
         if (path == null) {
             return;
         }
@@ -45,7 +45,7 @@ public class ClientController {
     }
 
     public void saveDatabase() {
-        String path = ClientControllerHelper.queryPath();
+        String path = ClientControllerHelper.querySavePath();
         if (path == null) {
             return;
         }

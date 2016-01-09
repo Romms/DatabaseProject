@@ -2,17 +2,36 @@ package me.dblab.client.clientcontroller;
 
 import javax.swing.*;
 
+import javax.swing.JFileChooser;
+import java.io.File;
+
 public class ClientControllerHelper {
-    public static String queryPath() {
-        return (String) JOptionPane.showInputDialog(
-                null,
-                "Enter Path:",
-                "Path Request Dialog",
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                null,
-                "sample.db"
-        );
+    public static String queryLoadPath() {
+        JFrame parentFrame = new JFrame();
+
+        JFileChooser fileChooser = new JFileChooser();
+        int result = fileChooser.showOpenDialog(parentFrame);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            return selectedFile.getAbsolutePath();
+        }
+
+        return null;
+    }
+
+    public static String querySavePath() {
+        JFrame parentFrame = new JFrame();
+
+        JFileChooser fileChooser = new JFileChooser();
+        int result = fileChooser.showSaveDialog(parentFrame);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            return selectedFile.getAbsolutePath();
+        }
+
+        return null;
     }
 
     public static String queryTableName() {
