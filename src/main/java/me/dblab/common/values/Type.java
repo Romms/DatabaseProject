@@ -5,14 +5,22 @@ import me.dblab.exceptions.StringNotSupportedForTypeException;
 import me.dblab.exceptions.WrongBytesArrayException;
 
 import java.io.Serializable;
+import java.util.HashMap;
 
 public abstract class Type implements Serializable {
-    private static final String INT_TYPE = "Int";
-    private static final String DOUBLE_TYPE = "Double";
-    private static final String CHAR_TYPE = "Char";
-    private static final String LONG_TYPE = "Long";
-    private static final String STRING_TYPE = "String";
-    private static final String HTML_TYPE = "HTML";
+    private static HashMap<String, String> ExistingTypes(){
+        return new HashMap<String, String>(){
+            {
+                put("Int","IntType");
+                put("Double","DoubleType");
+                put("Char","CharType");
+                put("Long","LongType");
+                put("String","StringType");
+                put("HTML","HTMLType");
+            }
+        };
+    };
+
 
     public abstract boolean supports(byte[] value);
 
@@ -22,22 +30,14 @@ public abstract class Type implements Serializable {
         return new Value(this, value);
     }
 
-    public static Type typeFromString(String type) throws InvalidTypeException {
-        switch (type) {
-            case INT_TYPE:
-                return new IntType();
-            case DOUBLE_TYPE:
-                return new DoubleType();
-            case CHAR_TYPE:
-                return new CharType();
-            case LONG_TYPE:
-                return new LongType();
-            case STRING_TYPE:
-                return new StringType();
-            case HTML_TYPE:
-                return new HTMLType();
-            default:
-                throw new InvalidTypeException();
+    public static Type typeFromString(String type) throws InvalidTypeException, ClassNotFoundException, IllegalAccessException, InstantiationException {
+
+        if(ExistingTypes().containsKey(type)) {
+            Class cls = Class.forName(ExistingTypes().get(type));
+            return (Type) cls.newInstance();
+        }
+        else {
+            throw new InvalidTypeException();
         }
     }
 

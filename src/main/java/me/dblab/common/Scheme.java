@@ -23,18 +23,25 @@ public class Scheme implements Serializable {
     public static Scheme createFromString(String s) throws InvalidSchemeDescriptionException {
         List<Column> columns = new LinkedList<>();
 
-        for (String columnDesctiption : s.split(";")) {
-            String[] tokens = columnDesctiption.split(",");
+        for (String columnDescription : s.split(";")) {
+            String[] tokens = columnDescription.split(",");
             if (tokens.length != 2) {
                 throw new InvalidSchemeDescriptionException();
             }
 
             String name = tokens[0];
             String type = tokens[1];
+
             try {
                 columns.add(new Column(name, Type.typeFromString(type)));
             } catch (InvalidTypeException e) {
                 throw new InvalidSchemeDescriptionException();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
             }
         }
 
