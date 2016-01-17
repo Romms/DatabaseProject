@@ -18,6 +18,7 @@ public abstract class Type implements Serializable {
                 put("Long",     "me.dblab.common.values.LongType");
                 put("String",   "me.dblab.common.values.StringType");
                 put("HTML",     "me.dblab.common.values.HTMLType");
+                put("Date",     "me.dblab.common.values.DateType");
             }
         };
     };
