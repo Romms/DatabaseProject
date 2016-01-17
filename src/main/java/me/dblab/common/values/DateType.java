@@ -45,6 +45,6 @@ public class DateType extends Type  {
             throw new StringNotSupportedForTypeException();
         }
 
-        return ByteBuffer.allocate(Long.BYTES).putDouble(value.getTime()).array();
+        return ByteBuffer.allocate(Long.BYTES).putLong(value.getTime()).array();
     }
 }
