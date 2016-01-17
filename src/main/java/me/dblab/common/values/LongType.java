@@ -29,6 +29,15 @@ public class LongType extends Type {
             return null;
         }
 
-        return ByteBuffer.allocate(Long.BYTES).putDouble(Long.parseLong(s)).array();
+        Long value;
+        try {
+            value = Long.parseLong(s);
+        } catch(NumberFormatException e) {
+            throw new StringNotSupportedForTypeException();
+        }
+
+
+
+        return ByteBuffer.allocate(Long.BYTES).putDouble(value).array();
     }
 }

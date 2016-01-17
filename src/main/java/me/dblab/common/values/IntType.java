@@ -29,6 +29,13 @@ public class IntType extends Type {
             return null;
         }
 
-        return ByteBuffer.allocate(Integer.BYTES).putInt(Integer.parseInt(s)).array();
+        Integer value;
+        try {
+            value = Integer.parseInt(s);
+        } catch(NumberFormatException e) {
+            throw new StringNotSupportedForTypeException();
+        }
+
+        return ByteBuffer.allocate(Integer.BYTES).putInt(value).array();
     }
 }

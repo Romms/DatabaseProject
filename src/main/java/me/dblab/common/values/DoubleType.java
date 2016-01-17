@@ -29,6 +29,14 @@ public class DoubleType extends Type {
             return null;
         }
 
-        return ByteBuffer.allocate(Double.BYTES).putDouble(Double.parseDouble(s)).array();
+        Double value;
+        try {
+            value = Double.parseDouble(s);
+        } catch(NumberFormatException e) {
+            throw new StringNotSupportedForTypeException();
+        }
+
+
+        return ByteBuffer.allocate(Double.BYTES).putDouble(value).array();
     }
 }
