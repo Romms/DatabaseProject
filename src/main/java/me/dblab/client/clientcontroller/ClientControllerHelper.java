@@ -57,7 +57,7 @@ public class ClientControllerHelper {
                 JOptionPane.QUESTION_MESSAGE,
                 null,
                 null,
-                "IntColumn,Int;CharColumn,Char;StringColumn,String"
+                "IntColumn,Int;CharColumn,Char;StringColumn,String;DateColumn,Date;DateIntervalColumn,DateInterval"
         );
     }
 }
