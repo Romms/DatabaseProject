@@ -1,13 +1,17 @@
 package me.dblab.common;
 
+import me.dblab.common.values.Type;
 import me.dblab.exceptions.SchemeNotIntersectCompatibleException;
 import me.dblab.exceptions.SchemeNotMergeCompatibleException;
 import me.dblab.exceptions.TableAlreadyExistsException;
 import me.dblab.exceptions.TableNotExistsException;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Stream;
 
 public class Database implements Serializable {
     private static final long serialVersionUID = -8959232483463892607L;
@@ -72,5 +76,10 @@ public class Database implements Serializable {
 
         Table tableResult = table1.product(table2);
         createTable(tableNameResult, tableResult);
+    }
+
+    public String[] getSupportedTypes(){
+        Set<String> types = Type.ExistingTypes().keySet();
+        return Arrays.copyOf(types.toArray(), types.size(), String[].class);
     }
 }

@@ -42,6 +42,11 @@ public class DatabaseControllerNullEscapeAdapter implements DatabaseController {
     }
 
     @Override
+    public String[] getSupportedTypes() throws RemoteException {
+        return controller.getSupportedTypes();
+    }
+
+    @Override
     public void createNewTable(String name, String scheme) throws InvalidSchemeDescriptionException, TableAlreadyExistsException, RemoteException {
         controller.createNewTable(name, scheme);
     }

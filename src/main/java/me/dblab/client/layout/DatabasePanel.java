@@ -9,6 +9,8 @@ import me.dblab.exceptions.RowNotExistsException;
 import me.dblab.exceptions.TableNotExistsException;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.TableModelEvent;
 import java.awt.*;
 import java.rmi.RemoteException;
@@ -25,9 +27,12 @@ public class DatabasePanel extends JPanel implements DatabaseUpdateListener {
         this.controller = controller;
         this.tabbedPane = new JTabbedPane();
 
+        tabbedPane.setPreferredSize(new Dimension(800, 400));
         add(tabbedPane);
 
         tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
+
+        refreshTabbedPane();
 
         controller.addUpdateListener(this);
     }
@@ -47,7 +52,8 @@ public class DatabasePanel extends JPanel implements DatabaseUpdateListener {
             return;
         }
 
-        tabbedPane.removeAll();
+        int selI = tabbedPane.getSelectedIndex();
+        refreshTabbedPane();
 
         String[] tableNames = databaseController.getTableNames();
 
@@ -57,6 +63,8 @@ public class DatabasePanel extends JPanel implements DatabaseUpdateListener {
                 tabbedPane.setSelectedIndex(i);
             }
         }
+
+        tabbedPane.setSelectedIndex(selI);
     }
 
     private void showTable(DatabaseController databaseController, String tableName) throws RemoteException {
@@ -112,10 +120,8 @@ public class DatabasePanel extends JPanel implements DatabaseUpdateListener {
             }
         });
 
-        // Control panel
-        JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
 
-        JButton addEmptyRowButton = new JButton("Add Empty Row");
+        JButton addEmptyRowButton = new JButton("Add Row");
         JButton deleteTableButton = new JButton("Delete Table");
         JButton deleteRowsButton = new JButton("Delete Selected Rows");
 
@@ -138,13 +144,63 @@ public class DatabasePanel extends JPanel implements DatabaseUpdateListener {
             }
         });
 
-        controlPanel.add(addEmptyRowButton);
-        controlPanel.add(deleteTableButton);
-        controlPanel.add(deleteRowsButton);
+        JButton intersectTablesButton = new JButton("Intersect");
+        intersectTablesButton.addActionListener(actionEvent -> controller.intersectTables());
+
+
+        JPanel panelGrid = new JPanel(new GridLayout(1, 2));
+
+        JPanel leftSide = new JPanel();
+        leftSide.setLayout(new FlowLayout(FlowLayout.LEADING));
+        leftSide.add(addEmptyRowButton);
+        leftSide.add(deleteRowsButton);
+
+        JPanel rightSide = new JPanel();
+        rightSide.setLayout(new FlowLayout(FlowLayout.TRAILING));
+        rightSide.add(deleteTableButton);
+        rightSide.add(intersectTablesButton);
+
+
+        panelGrid.add(leftSide);
+        panelGrid.add(rightSide);
+
 
         // Put all together
-        panel.add(controlPanel, BorderLayout.PAGE_START);
+        panel.add(panelGrid, BorderLayout.PAGE_START);
         panel.add(new JScrollPane(table), BorderLayout.CENTER);
         return panel;
     }
+
+    private void refreshTabbedPane() {
+        tabbedPane.removeAll();
+
+        System.out.println(":asfasf");
+
+        String[] supportedTypes = new String[0];
+        try {
+            supportedTypes = controller.getDatabaseController().getSupportedTypes();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+
+        addTablePanel = new AddTablePanel(supportedTypes);
+
+        newTableName = new JTextField("Table Name");
+        newTableName.setColumns(20);
+        JButton addTable = new JButton("Add Table");
+        addTable.addActionListener(e -> controller.createTable(newTableName.getText(), addTablePanel.getScheme()));
+
+        JPanel panelLabel = new JPanel(new FlowLayout(FlowLayout.LEADING));
+        panelLabel.add(newTableName);
+        panelLabel.add(addTable);
+
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(panelLabel,BorderLayout.NORTH);
+        panel.add(addTablePanel,BorderLayout.CENTER);
+        tabbedPane.addTab("+", panel);
+
+    }
+
+    private JTextField newTableName;
+    private AddTablePanel addTablePanel;
 }

@@ -87,6 +87,27 @@ public class ClientController {
         notifyUpdateListeners();
     }
 
+    public void createTable(String name, String scheme) {
+        if (name == null) {
+            return;
+        }
+
+        if (scheme == null) {
+            return;
+        }
+
+        try {
+            databaseController.createNewTable(name, scheme);
+        } catch (InvalidSchemeDescriptionException | RemoteException e) {
+            e.printStackTrace();
+        } catch (TableAlreadyExistsException e) {
+            notifyMessageListeners(e.getMessage());
+        }
+
+        notifyUpdateListeners();
+    }
+
+
     public void removeTable() {
         String tableName = ClientControllerHelper.queryTableName();
         if (tableName == null) {

@@ -59,6 +59,15 @@ public class DatabaseControllerDirect implements DatabaseController {
     }
 
     @Override
+    public String[] getSupportedTypes() {
+        if(null == database) {
+            return new String[0];
+        }
+        else
+            return database.getSupportedTypes();
+    }
+
+    @Override
     public void createNewTable(String name, String scheme) throws InvalidSchemeDescriptionException, TableAlreadyExistsException {
         database.createTable(name, Scheme.createFromString(scheme));
     }

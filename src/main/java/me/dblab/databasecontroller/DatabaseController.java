@@ -17,6 +17,7 @@ public interface DatabaseController extends Remote {
     @WebMethod void saveDatabaseToFile(String path) throws RemoteException;
     @WebMethod void closeDatabase() throws RemoteException;
     @WebMethod String[] getTableNames() throws RemoteException;
+    @WebMethod String[] getSupportedTypes() throws RemoteException;
     @WebMethod void createNewTable(String name, String scheme) throws InvalidSchemeDescriptionException, TableAlreadyExistsException, RemoteException;
     @WebMethod void removeTable(String tableName) throws TableNotExistsException, RemoteException;
     @WebMethod void intersectTables(String tableName1, String tableName2, String tableNameResult) throws SchemeNotIntersectCompatibleException, TableAlreadyExistsException, TableNotExistsException, RemoteException;

@@ -151,7 +151,7 @@ public class GuiLauncher {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Database Management System");
             frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-            frame.add(new MainPanel(new ClientController(finalController)), BorderLayout.CENTER);
+            frame.add(new MainPanel(frame, new ClientController(finalController)), BorderLayout.CENTER);
             frame.pack();
             frame.setVisible(true);
         });

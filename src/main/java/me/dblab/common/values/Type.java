@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 
 public abstract class Type implements Serializable {
-    private static HashMap<String, String> ExistingTypes(){
+    public static HashMap<String, String> ExistingTypes(){
         return new HashMap<String, String>(){
             {
                 put("Int",          "me.dblab.common.values.IntType");
@@ -17,7 +17,6 @@ public abstract class Type implements Serializable {
                 put("Char",         "me.dblab.common.values.CharType");
                 put("Long",         "me.dblab.common.values.LongType");
                 put("String",       "me.dblab.common.values.StringType");
-                put("HTML",         "me.dblab.common.values.HTMLType");
                 put("Date",         "me.dblab.common.values.DateType");
                 put("DateInterval", "me.dblab.common.values.DateIntervalType");
             }
