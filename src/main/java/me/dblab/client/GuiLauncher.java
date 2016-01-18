@@ -87,8 +87,9 @@ public class GuiLauncher {
 
     protected static DatabaseController GetWebServiceController() {
         try {
-            URL url = new URL("http://localhost:7000/ws_db");
-            //URL url = new URL("https://infinite-lowlands-4845.herokuapp.com/ws_db");
+            URL url;
+//          url = new URL("http://localhost:7000/ws_db");
+            url = new URL("https://enigmatic-garden-2745.herokuapp.com/ws_db");
             QName qname = new QName("http://databasecontroller.dblab.me/", "DatabaseControllerService");
             Service service = Service.create(url, qname);
             return new DatabaseControllerNullUnescapeAdapter(service.getPort(DatabaseControllerWeb.class));
