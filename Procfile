@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/dblab.jar me.dblab.server.DatabaseWebService $PORT
+web: java $JAVA_OPTS -cp target/dblab.jar me.dblab.server.DatabaseWebService --port=7000 --database=Users.db

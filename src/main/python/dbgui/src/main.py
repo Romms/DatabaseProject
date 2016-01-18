@@ -116,15 +116,15 @@ class TableControlWidget(BoxLayout):
 
         delTblBtn = DBControlWidget.get_def_btn("Delete Table")
         intersectTblBtn = DBControlWidget.get_def_btn("Intersect Tables")
-        productTblBtn = DBControlWidget.get_def_btn("Product Tables")
+        # productTblBtn = DBControlWidget.get_def_btn("Product Tables")
 
         delTblBtn.bind(on_press=OnDel)
         intersectTblBtn.bind(on_press=OnIntersect)
-        productTblBtn.bind(on_press=OnProduct)
+        # productTblBtn.bind(on_press=OnProduct)
 
         self.add_widget(delTblBtn)
         self.add_widget(intersectTblBtn)
-        self.add_widget(productTblBtn)
+        # self.add_widget(productTblBtn)
 
 
 class TableDataWidget(GridLayout):
@@ -207,6 +207,6 @@ class DBApp(App):
 
 
 if __name__ == '__main__':
-    ctrl = Controller('http://localhost:7777/ws_db?wsdl')
+    ctrl = Controller('http://localhost:7000/ws_db?wsdl')
     #ctrl = Controller('https://infinite-lowlands-4845.herokuapp.com/ws_db?wsdl')
     DBApp(ctrl).run()

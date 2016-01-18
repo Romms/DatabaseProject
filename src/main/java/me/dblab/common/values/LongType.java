@@ -38,6 +38,6 @@ public class LongType extends Type {
 
 
 
-        return ByteBuffer.allocate(Long.BYTES).putDouble(value).array();
+        return ByteBuffer.allocate(Long.BYTES).putLong(value).array();
     }
 }

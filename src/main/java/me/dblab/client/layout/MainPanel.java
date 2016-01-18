@@ -2,7 +2,6 @@ package me.dblab.client.layout;
 
 import me.dblab.client.clientcontroller.ClientController;
 import me.dblab.client.misc.MessageListener;
-import oracle.jrockit.jfr.JFR;
 
 import javax.swing.*;
 import java.awt.*;
